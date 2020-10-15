@@ -1,7 +1,5 @@
 package customers
 
 type Holder struct {
-	Name string
-	CPF  string
-	Job  string
+	Name, CPF, Job string
 }

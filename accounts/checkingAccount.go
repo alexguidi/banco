@@ -3,10 +3,9 @@ package accounts
 import "banco/customers"
 
 type CheckingAccount struct {
-	Holder        customers.Holder
-	AgencyNumber  int
-	AccountNumber int
-	balance       float64
+	Holder                      customers.Holder
+	AgencyNumber, AccountNumber int
+	balance                     float64
 }
 
 func (c *CheckingAccount) Transfer(value float64, targetAccount *CheckingAccount) bool {

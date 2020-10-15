@@ -8,6 +8,19 @@ import (
 
 func main() {
 
+	denisAcccount := accounts.SavingAccount{}
+	denisAcccount.Deposit(500)
+	denisAcccount.Withdraw(25)
+	fmt.Println(denisAcccount.GetBalance())
+	PayBill(&denisAcccount, 50)
+	fmt.Println(denisAcccount.GetBalance())
+
+	luisAccount := accounts.CheckingAccount{}
+	luisAccount.Deposit(100)
+	fmt.Println("Luis Account Balance ", luisAccount.GetBalance())
+	PayBill(&luisAccount, 15)
+	fmt.Println("Luis Account Balance ", luisAccount.GetBalance())
+
 	exampleAccount := accounts.CheckingAccount{}
 	exampleAccount.Deposit(100)
 	fmt.Println(exampleAccount.GetBalance())
@@ -76,4 +89,12 @@ func comparations() {
 	fmt.Println(&betoAccount2)
 	fmt.Println(betoAccount2 == betoAccount)
 	fmt.Println(*betoAccount == *betoAccount2)
+}
+
+func PayBill(account checkAccount, billValue float64) {
+	account.Withdraw(billValue)
+}
+
+type checkAccount interface {
+	Withdraw(withdrawValue float64) string
 }

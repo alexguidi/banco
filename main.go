@@ -1,55 +1,55 @@
 package main
 
-import "fmt"
-
-type CheckingAccount struct {
-	holder        string
-	agencyNumber  int
-	accountNumber int
-	balance       float64
-}
+import (
+	"banco/accounts"
+	"fmt"
+)
 
 func main() {
-	alexAccount := CheckingAccount{}
-	alexAccount.holder = "Alex"
-	alexAccount.balance = 500
+	alexAccount := accounts.CheckingAccount{}
+	alexAccount.Holder = "Alex"
+	alexAccount.Balance = 500
 
-	fmt.Println(alexAccount.balance)
+	fmt.Println(alexAccount.Balance)
 
-	fmt.Println(alexAccount.withdraw(-100))
+	fmt.Println(alexAccount.Withdraw(100))
 
-	fmt.Println(alexAccount.balance)
-}
+	fmt.Println(alexAccount.Balance)
 
-func (c *CheckingAccount) withdraw(withdrawValue float64) string {
-	canWithdraw := withdrawValue > 0 && withdrawValue <= c.balance
+	status, value := alexAccount.Deposit(600)
 
-	if canWithdraw {
-		c.balance -= withdrawValue
-		return "Withdraw performed successfully"
-	} else {
-		return "There is no balance available to withdraw"
-	}
+	fmt.Println(status, value)
+
+	nycolleAccount := accounts.CheckingAccount{Holder: "Nycolle", Balance: 200}
+
+	fmt.Println(alexAccount)
+	fmt.Println(nycolleAccount)
+
+	statusTransfer := alexAccount.Transfer(200, &nycolleAccount)
+	fmt.Println("Status transfer: ", statusTransfer)
+
+	fmt.Println(alexAccount)
+	fmt.Println(nycolleAccount)
 }
 
 func comparations() {
-	alexAccount := CheckingAccount{holder: "Alex", agencyNumber: 589, accountNumber: 123456, balance: 125.5}
-	alexAccount2 := CheckingAccount{holder: "Alex", agencyNumber: 589, accountNumber: 123456, balance: 125.5}
+	alexAccount := accounts.CheckingAccount{Holder: "Alex", AgencyNumber: 589, AccountNumber: 123456, Balance: 125.5}
+	alexAccount2 := accounts.CheckingAccount{Holder: "Alex", AgencyNumber: 589, AccountNumber: 123456, Balance: 125.5}
 
 	fmt.Println(alexAccount == alexAccount2)
 
-	nycolleAccount := CheckingAccount{"Nycolle", 222, 111222, 200.0}
+	nycolleAccount := accounts.CheckingAccount{"Nycolle", 222, 111222, 200.0}
 	fmt.Println(nycolleAccount)
 
-	var betoAccount *CheckingAccount
-	betoAccount = new(CheckingAccount)
-	betoAccount.holder = "Beto"
-	betoAccount.balance = 300.5
+	var betoAccount *accounts.CheckingAccount
+	betoAccount = new(accounts.CheckingAccount)
+	betoAccount.Holder = "Beto"
+	betoAccount.Balance = 300.5
 
-	var betoAccount2 *CheckingAccount
-	betoAccount2 = new(CheckingAccount)
-	betoAccount2.holder = "Beto"
-	betoAccount2.balance = 300.5
+	var betoAccount2 *accounts.CheckingAccount
+	betoAccount2 = new(accounts.CheckingAccount)
+	betoAccount2.Holder = "Beto"
+	betoAccount2.Balance = 300.5
 
 	fmt.Println(&betoAccount)
 	fmt.Println(&betoAccount2)
